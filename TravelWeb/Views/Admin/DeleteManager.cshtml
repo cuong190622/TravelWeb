@@ -1,0 +1,32 @@
+﻿@model TravelWeb.Models.UserInfo
+@{
+    ViewBag.Title = "DeleteManager";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+<h2>DeleteManager</h2>
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Are you Sure Delete This Account?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+
+    <form id="deleteForm" method="post">
+        <div class="modal-body">
+            <fieldset disabled>
+                <div class="form-group">
+                    <label for="Username">Acc Username:</label>
+                    @Html.DisplayFor(m => m.UserName)
+                </div>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Delete">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "EditAccount";
+    Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
+}
+
+﻿@model TravelWeb.Models.UserInfo
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" })
+}
+
+
+@*<div class="container">
+    <h1 class="display-4">Edit User</h1>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" })
+    }
+
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name,
+              htmlAttributes: new { @class = "font-weight-bold" })
+
+
+            @Html.EditorFor(m => m.Name,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.Email,
+            new
+            {
+              htmlAttributes = new { @class = "form-control" }
+            })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "DoB" } })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Age, new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.Age,
+            new
+            {
+              htmlAttributes = new { @class = "form-control" }
+            })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Phone, new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.Phone,
+            new
+            {
+              htmlAttributes = new { @class = "form-control" }
+            })
+        </div>
+
+        <br />
+
+
+
+
+
+
+
+        <button type="submit" class="btn btn-dark">Update</button>
+    }
+
+</div>*@
+
+
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <div class="idea blue">
+
+
+        <div class="container">
+
+
+
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <h2 style="font-weight: bold;">Edit Account</h2>
+                @Html.HiddenFor(m => m.Role)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name,
+                      htmlAttributes: new { @class = "font-weight-bold" })
+
+
+                    @Html.EditorFor(m => m.Name,
+                     new
+                     {
+                       htmlAttributes = new { @class = "form-control" }
+                     })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(m => m.Email,
+                    new
+                    {
+                      htmlAttributes = new { @class = "form-control" }
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "DoB" } })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Age, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(m => m.Age,
+                    new
+                    {
+                      htmlAttributes = new { @class = "form-control" }
+                    })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, new { @class = "font-weight-bold" })
+                    @Html.EditorFor(m => m.Phone,
+                    new
+                    {
+                      htmlAttributes = new { @class = "form-control" }
+                    })
+                </div>
+
+                <button type="submit" class="btn btn-dark">Update</button>
+            }
+            <br />
+        </div>
+        
+    </div>
+
+   
+</body>
+</html>
+

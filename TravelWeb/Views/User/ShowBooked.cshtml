@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TravelWeb.Models.Booking>
+@{
+    ViewBag.Title = "ShowBooked";
+    Layout = "~/Views/User/_LayoutUser.cshtml";
+}
+
+<h2>ShowBooked</h2>
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerAdress)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerPhone)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.BookingFrom)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.BookingTo)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.NumberOfMember)</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var c in Model)
+            {
+            <tr>
+                <th scope="row">@Html.DisplayFor(model => c.UserId)</th>
+                <td>@Html.DisplayFor(model => c.CustomerName)</td>
+                <td>@Html.DisplayFor(model => c.CustomerAdress)</td>
+                <td>@Html.DisplayFor(model => c.CustomerPhone)</td>
+                <td>@Html.DisplayFor(model => c.BookingFrom)</td>
+                <td>@Html.DisplayFor(model => c.BookingTo)</td>
+                <td>@Html.DisplayFor(model => c.NumberOfMember)</td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TravelWeb.Models.DTO.BookingTypeHtDTO>
+@{
+    ViewBag.Title = "ShowHistory";
+    Layout = "~/Views/Managerht/_LayoutManager.cshtml";
+}
+
+<h2>ShowHistory</h2>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<div>
+
+    <input id="myInput" type="text" placeholder="Search..">
+    <br><br>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerAdress)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerPhone)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.BookingFrom)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.BookingTo)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.NumberOfMember)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Types)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.NumberRoomBook)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Statuses)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.TotalPrice)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.HotelName)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var c in Model)
+            {
+                <tr class="Search">
+
+                    <td>@Html.DisplayFor(model => c.CustomerName)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerAdress)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerPhone)</td>
+                    <td>@Html.DisplayFor(model => c.BookingFrom)</td>
+                    <td>@Html.DisplayFor(model => c.BookingTo)</td>
+                    <td>@Html.DisplayFor(model => c.NumberOfMember)</td>
+                    <td>@Html.DisplayFor(model => c.Types)</td>
+                    <td>@Html.DisplayFor(model => c.NumberRoomBook)</td>
+                    <td>@Html.DisplayFor(model => c.Statuses)</td>
+                    <td>@c.TotalPrice.ToString()</td>
+                    <td>@Html.DisplayFor(model => c.HotelName)</td>
+
+
+                   
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TravelWeb.Models.Location>
+@{
+    ViewBag.Title = "ShowLocation";
+    Layout = "~/Views/User/_LayoutUser.cshtml";
+}
+
+<h2>ShowLocation</h2>
+
+
+<div class="container">
+    <h1 class="display-4">Location OverView</h1>
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+
+    }
+    @{
+        ViewBag.UN = TempData["UN"];
+    }
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.LocationImage)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var c in Model)
+            {
+            <tr>
+                <th scope="row">@Html.DisplayFor(model => c.Id)</th>
+                <td>@Html.DisplayFor(model => c.Name)</td>
+                <td>@Html.DisplayFor(model => c.Description)</td>
+                <td><img src=@Url.Content(c.LocationImage) alt="" height="100" width="100" /></td>
+
+                <td>
+                    <a type="button" class="btn btn-success btn-sm"
+                       href="@Url.Action("HotelLocation", new {id = c.Id})">View Hotel</a>
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

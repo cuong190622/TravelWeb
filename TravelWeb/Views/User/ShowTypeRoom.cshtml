@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TravelWeb.Models.DTO.BookingTypeDTO>
+@{
+    ViewBag.Title = "ShowTypeRoom";
+    Layout = "~/Views/User/_LayoutUser.cshtml";
+}
+
+<h2>ShowTypeRoom</h2>
+<div class="container">
+
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+
+    }
+    @{
+        ViewBag.UN = TempData["UN"];
+    }
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.NameType)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Image)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.MaxNumberRoom)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.RoomFree)</th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var c in Model)
+            {
+            <tr>
+                <th scope="row">@Html.DisplayFor(model => c.Id)</th>
+                <td>@Html.DisplayFor(model => c.NameType)</td>
+                <td><img src=@Url.Content(c.Image) alt="" height="100" width="100" /></td>
+                <td>@Html.DisplayFor(model => c.Price)</td>
+                <td>@Html.DisplayFor(model => c.MaxNumberRoom)</td>
+                <td>@Html.DisplayFor(model => c.Description)</td>
+                <td>@c.RoomFree.ToString()</td>
+
+
+                @*<td>
+            <a type="button" class="btn btn-success btn-sm"
+               href="@Url.Action("EditTypeRoom", new {id = c.Id})">Edit</a>
+        </td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm"
+               href="@Url.Action("DeleteTypeRoom", new {id = c.Id })">Delete</a>
+        </td>*@
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
