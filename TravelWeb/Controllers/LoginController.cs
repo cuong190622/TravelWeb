@@ -77,14 +77,14 @@ namespace TravelWeb.Controllers
                     if (await userManager.IsInRoleAsync(fuser.Id, SecurityRoles.User))
                     {
                         TempData["UserId"] = fuser.Id;
-                        return RedirectToAction("Index", "User");
+                        return RedirectToAction("ShowLocation", "User");
                     }
 
             
                     if (await userManager.IsInRoleAsync(fuser.Id, SecurityRoles.Manager))
                     {
                         TempData["xyz"] = fuser.Id;
-                        return RedirectToAction("Index", "Managerht");
+                        return RedirectToAction("ShowTypeRoom", "Managerht");
                     }
                     else return Content($"Comming Soon!!!");
                 }

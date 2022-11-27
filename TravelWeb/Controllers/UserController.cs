@@ -35,22 +35,28 @@ namespace TravelWeb.Controllers
             return View();
         }
 
-        
-        public ActionResult ShowBooked() 
+        [Authorize(Roles = SecurityRoles.User)]
+        public async Task<ActionResult> ShowBooked() 
         {
 
-
+            var context = new HotelContext();
+            var store = new UserStore<UserInfo>(context);
+            var manager = new UserManager<UserInfo>(store);
+            var user = await manager.FindByIdAsync(User.Identity.GetUserId());
             
+
             using (var abc = new EF.HotelContext())
             {
-                String id = System.Security.Principal.WindowsIdentity.GetCurrent().GetUserId();
-                var booked = abc.Bookings.Where(a => a.UserId == id ).ToList();
+               
+
+                // String id = System.Security.Principal.WindowsIdentity.GetCurrent().GetUserId();
+                var booked = abc.Bookings.Where(a => a.UserId == user.Id ).ToList();
                 return View(booked);
             }
         }
 
-       
 
+        [Authorize(Roles = SecurityRoles.User)]
         public ActionResult ShowLocation()
         {
 
@@ -60,7 +66,7 @@ namespace TravelWeb.Controllers
                 return View(Location);
             }
         }
-
+        [Authorize(Roles = SecurityRoles.User)]
         public ActionResult HotelLocation(int id)
         {
 
@@ -85,28 +91,10 @@ namespace TravelWeb.Controllers
         }
 
 
-        //public ActionResult ViewRooms(int id)
-        //{
 
-        //    using (var hotels = new EF.HotelContext())
-        //    {
-        //        //var hotel = from location in hotels.Locations
-        //        //            join holtelLocation in hotels.Hotels on location.Id equals holtelLocation.LocationId select
-        //        //            new hotelLocationviewmodal()
-        //        //            {
-        //        //                id = holtelLocation.Id,
-
-        //        //                namehotel = holtelLocation.Name,
-        //        //                star = holtelLocation.Star,
-        //        //                description = holtelLocation.Star
+        
 
 
-        //        //             }
-
-        //        var roomsht = from room in hotels.Rooms where room.HotelId == id select room;
-        //        return View(roomsht.ToList());
-        //    }
-        //}
 
 
 
@@ -114,7 +102,7 @@ namespace TravelWeb.Controllers
         {
           
                 var stx = (from type in context.TypeRooms
-                          where type.HotelId == id select new
+                          where type.Id == id select new
                           {
                               type.Name,
                               type.Id   
@@ -134,29 +122,116 @@ namespace TravelWeb.Controllers
 
 
 
-
+        [Authorize(Roles = SecurityRoles.User)]
         public ActionResult ShowTypeRoom(int id)
         {
 
-          
+
+            var Type = (from ty in context.TypeRooms
+                        join ht in context.Hotels on ty.HotelId equals ht.Id into hoteltype
+                        from ht in hoteltype.DefaultIfEmpty()
+                        select new TypeRoomDTO
+                        {
+                            TypeId = ty.Id,
+                            HotelId = ht.Id,
+                            NameType = ty.Name,
+                            Image = ty.Image,
+                            Price = ty.Price,
+                            MaxNumberRoom = context.Rooms.Where(x => x.TypeId == ty.Id).Count(),
+                            Description = ty.Description,
+                            HotelName = ht.Name,
+                            AvailableRoom = ty.AvailableRoom != null ? ty.AvailableRoom : context.Rooms.Where(x => x.TypeId == ty.Id && x.Status.Equals("available")).Count(),
+                        }).Where(p => p.HotelId == id).ToList();
 
 
-                var Type = (from ty in context.TypeRooms
-                            join bk in context.Bookings on ty.Id equals bk.TypeRoomId
-                            select new BookingTypeDTO
-                            {
-                                Id = ty.Id,
-                                NameType = ty.Name,
-                                Image = ty.Image,
-                                Price = ty.Price,
-                                MaxNumberRoom = ty.MaxNumberRoom,
-                                Description = ty.Description,
-                                NumberRoomBook = bk.numberRoomBook,
-                                HotelId = ty.HotelId,
-                            }).ToList().Where(p => p.HotelId == id);
-                // var Type = Db.TypeRooms.OrderBy(a => a.Id).ToList();
-                return View(Type);
+
             
+            return View(Type);
+                
+
+        }
+
+
+
+
+        // Create Comment
+
+        private List<SelectListItem> getListType(int id)
+        {
+
+            var stx = (from type in context.TypeRooms
+                       where type.Id == id
+                       select new
+                       {
+                           type.Name,
+                           type.Id
+                       }).ToList()
+                      .Select(p => new SelectListItem
+                      {
+                          Text = p.Name,
+                          Value = p.Id.ToString()
+                      }).ToList();
+            // var bookinghotel = from room in abc.Rooms where room.HotelId == id select room;
+            //  return bookinghotel;
+            return stx;
+
+        }
+
+
+
+
+
+        [HttpGet]
+        public ActionResult CreateComment(int id)
+        {
+            ViewBag.comment = getListType(id);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateComment(Comment a)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ShowComment", new { TypeId = a.TypeId });
+            }
+
+            var context = new HotelContext();
+            var store = new UserStore<UserInfo>(context);
+            var manager = new UserManager<UserInfo>(store);
+            var user = await manager.FindByIdAsync(User.Identity.GetUserId());
+
+            a.Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+            a.CommentType = a.CommentType;
+            a.UserId = user.Id;
+            context.Comments.Add(a);
+            context.SaveChanges();
+            return RedirectToAction("ShowComment", new { TypeId = a.TypeId });
+        }
+
+
+
+        // Show Comment
+        [Authorize(Roles = SecurityRoles.User)]
+        public ActionResult ShowComment()
+        {
+
+
+            var Comment = (from cm in context.Comments
+                           join us in context.Users on cm.UserId equals us.Id into usercomment
+                           from uc in usercomment.DefaultIfEmpty()
+                           select new UserCommentDTO
+                           {
+                               Id = cm.Id,
+                               UserName = uc.UserName,
+                               Comment = cm.CommentType,
+                               TimeComment = cm.Date
+
+                           }).ToList();
+
+
+            return View(Comment);
+
 
         }
 
@@ -168,23 +243,7 @@ namespace TravelWeb.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        [Authorize(Roles = SecurityRoles.User)]
         [HttpGet]
         public ActionResult CreateBooking(int id)
         {
@@ -215,31 +274,35 @@ namespace TravelWeb.Controllers
                 var store = new UserStore<UserInfo>(context);
                 var manager = new UserManager<UserInfo>(store);
                 var user = await manager.FindByIdAsync(User.Identity.GetUserId());
-                using (var Database = new EF.HotelContext())
-                {
-                    a.CustomerName = a.CustomerName ;
                     
-                    a.CustomerAdress = a.CustomerAdress;
-                    a.CustomerPhone = a.CustomerPhone;
-                    a.BookingFrom = a.BookingFrom;
-                    a.BookingTo = a.BookingTo;
-                    a.numberRoomBook = a.numberRoomBook;
-                    a.NumberOfMember = a.NumberOfMember;
+                    var typeRoom = context.TypeRooms.FirstOrDefault(x => x.Id == a.TypeRoomId);
+
+                    a.Price = typeRoom.Price * a.NumberRoomBook;  
                     a.UserId = user.Id;
-                    a.status = "wating";
-                    Database.Bookings.Add(a);
-                    Database.SaveChanges();
-                   // await SendEmail((a.), "New user booking <p>Comment: " + a.RoomId + " </p>");
+                    a.Status = "wating";
+
+                    context.Bookings.Add(a);
+                    // await SendEmail((a.), "New user booking <p>Comment: " + a.RoomId + " </p>");
+                    
+                    typeRoom.AvailableRoom = context.Rooms.Where(x => x.TypeId == a.TypeRoomId && x.Status.Equals("available")).Count() - a.NumberRoomBook;
+                    context.SaveChanges();
 
 
-                }
+
             }
             TempData["message"] = $"Create new idea Successfully!";
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowLocation");
         }
 
         private void Customvalidation(Booking a)
         {
+            var RoomFreebk = context.TypeRooms.FirstOrDefault(x => x.Id == a.TypeRoomId).AvailableRoom;
+            if (RoomFreebk == null)
+            {
+                RoomFreebk = context.Rooms.Where(x => x.TypeId == a.TypeRoomId && x.Status.Equals("available")).Count();
+            }
+            
+            
             if (string.IsNullOrEmpty(a.CustomerName))
             {
                 ModelState.AddModelError("CustomerName", "Please input Name");
@@ -257,12 +320,13 @@ namespace TravelWeb.Controllers
             {
                 ModelState.AddModelError("BookingTo", "Please input to > from");
             }
-           
-                var free = BookingTypeDTO.a.RoomFree
-            if (a.numberRoomBook > )
+                if(RoomFreebk  < a.NumberRoomBook )
             {
-                ModelState.AddModelError("BookingTo", "Please input to > from");
+                ModelState.AddModelError("numberRoomBook", "Please input numberRoomBook < RoomFree");
+
             }
+           
+               
         }
 
         public async Task SendEmail(string email, string booked)

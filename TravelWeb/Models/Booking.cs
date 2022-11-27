@@ -9,7 +9,7 @@ namespace TravelWeb.Models
 {
     public class Booking
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         
         [Display(Name = "Customer Name")]
@@ -34,14 +34,18 @@ namespace TravelWeb.Models
         public int TypeRoomId { get; set; }
 
         [Required(ErrorMessage = "Need to input Number Room book")]
-        public int numberRoomBook { get; set; }
+        public int NumberRoomBook { get; set; }
         [Display(Name = "Number Of Member")]
         [Required(ErrorMessage = "Need to input Number of member ")]
         public int NumberOfMember { get; set; }
         [Display(Name = "Status")]
-        public string status { get; set; }
+        public string Status { get; set; }
+        
         public string UserId { get; set; }
-       
+
+        public float Price { get; set; }
+
+
 
 
 

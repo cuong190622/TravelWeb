@@ -7,7 +7,7 @@
     Layout = "~/Views/Managerht/_LayoutManager.cshtml";
 }
 
-<h2>ShowTypeRoom</h2>
+<h2>TypeRoom</h2>
 <div class="container">
 
     @if (TempData["message"] != null)
@@ -29,6 +29,8 @@
                 <th scope="col">@Html.DisplayNameFor(model => model.HotelName)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.MaxNumberRoom)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.AvailableRoom)</th>
+                <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
             </tr>
@@ -46,6 +48,7 @@
                 <td>@Html.DisplayFor(model => c.HotelName)</td>
                 <td>@Html.DisplayFor(model => c.MaxNumberRoom)</td>
                 <td>@Html.DisplayFor(model => c.Description)</td>
+                <td>@Html.DisplayFor(model => c.AvailableRoom)</td>
 
 
                 <td>
@@ -55,6 +58,10 @@
                 <td>
                     <a type="button" class="btn btn-danger btn-sm"
                        href="@Url.Action("DeleteTypeRoom", new {id = c.TypeId })">Delete</a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-danger btn-sm"
+                       href="@Url.Action("CreateRoom", new {id = c.TypeId })">Create Room</a>
                 </td>
             </tr>
             }

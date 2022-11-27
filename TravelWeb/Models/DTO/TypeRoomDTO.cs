@@ -8,6 +8,7 @@ namespace TravelWeb.Models.DTO
     public class TypeRoomDTO
     {
         public int TypeId { get; set; }
+        public int HotelId { get; set; }
 
         public string NameType { get; set; }
 
@@ -20,5 +21,6 @@ namespace TravelWeb.Models.DTO
         public int MaxNumberRoom { get; set; }
 
         public string HotelName { get; set; }
+        public int? AvailableRoom { get; set; }
     }
 }

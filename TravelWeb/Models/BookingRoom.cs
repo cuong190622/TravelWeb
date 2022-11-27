@@ -5,9 +5,11 @@ using System.Web;
 
 namespace TravelWeb.Models
 {
-    public class Status
+    public class BookingRoom
     {
         public int Id { get; set; }
-        public bool Statust { get; set; }
+        public int BookingId { get; set; }
+
+        public int RoomId { get; set; }
     }
 }

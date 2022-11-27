@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TravelWeb.Models.DTO.UserCommentDTO>
+@{
+    ViewBag.Title = "ShowComment";
+    Layout = "~/Views/User/_LayoutUser.cshtml";
+}
+
+<h2>ShowComment</h2>
+<div class="container">
+
+    @if (TempData["message"] != null)
+    {
+        ViewBag.Message = TempData["message"];
+
+    }
+    @{
+        ViewBag.UN = TempData["UN"];
+    }
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.UserName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Comment)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.TimeComment)</th>
+               
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(model => c.Id)</th>
+                    <td>@Html.DisplayFor(model => c.UserName)</td>
+                   
+                    <td>@Html.DisplayFor(model => c.Comment)</td>
+                    <td>@Html.DisplayFor(model => c.TimeComment)</td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

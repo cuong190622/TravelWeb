@@ -7,7 +7,7 @@
 
 
 <div class="container">
-    <h1 class="display-4">Location OverView</h1>
+    <h1 class="display-4">Hotel OverView</h1>
     @if (TempData["message"] != null)
     {
         ViewBag.Message = TempData["message"];
@@ -24,6 +24,7 @@
                 <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.Star)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.HotelImage)</th>
                 <th scope="col">&nbsp;</th>
                 <th scope="col">&nbsp;</th>
             </tr>
@@ -38,11 +39,9 @@
                 <td>@Html.DisplayFor(model => c.Name)</td>
                 <td>@Html.DisplayFor(model => c.Star)</td>
                 <td>@Html.DisplayFor(model => c.Description)</td>
+                <td><img src=@Url.Content(c.HotelImage) alt="" height="100" width="100" /></td>
 
-                <td>
-                    <a type="button" class="btn btn-success btn-sm"
-                       href="@Url.Action("CreateBooking", new {id = c.Id})">Booking Hotel</a>
-                </td>
+
 
                 <td>
                     <a type="button" class="btn btn-success btn-sm"

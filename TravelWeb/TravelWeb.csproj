@@ -212,9 +212,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManagerhtController.cs" />
-    <Compile Include="EF\202211150328508_InitialCreate.cs" />
-    <Compile Include="EF\202211150328508_InitialCreate.designer.cs">
-      <DependentUpon>202211150328508_InitialCreate.cs</DependentUpon>
+    <Compile Include="EF\202211230239362_v4.cs" />
+    <Compile Include="EF\202211230239362_v4.designer.cs">
+      <DependentUpon>202211230239362_v4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EF\202211230247012_v5.cs" />
+    <Compile Include="EF\202211230247012_v5.designer.cs">
+      <DependentUpon>202211230247012_v5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EF\202211260148407_v2.cs" />
+    <Compile Include="EF\202211260148407_v2.designer.cs">
+      <DependentUpon>202211260148407_v2.cs</DependentUpon>
     </Compile>
     <Compile Include="EF\Configuration.cs" />
     <Compile Include="EF\HotelContext.cs" />
@@ -222,14 +230,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookingRoom.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\DTO\ArrayDTO.cs" />
     <Compile Include="Models\DTO\BookingTypeDTO.cs" />
     <Compile Include="Models\DTO\BookingTypeHtDTO.cs" />
     <Compile Include="Models\DTO\TypeRoomDTO.cs" />
+    <Compile Include="Models\DTO\UserCommentDTO.cs" />
     <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Room.cs" />
     <Compile Include="Models\SecurityRoles.cs" />
-    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\TypeRoom.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\UserInRole.cs" />
@@ -345,6 +357,10 @@
     <Content Include="Views\User\ShowTypeRoom.cshtml" />
     <Content Include="Views\Managerht\ShowActive.cshtml" />
     <Content Include="Views\Managerht\ShowHistory.cshtml" />
+    <Content Include="Views\Managerht\CreateRoom.cshtml" />
+    <Content Include="Views\User\CreateComment.cshtml" />
+    <Content Include="Views\User\ShowComment.cshtml" />
+    <Content Include="Views\Managerht\ShowLate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,8 +371,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EF\202211150328508_InitialCreate.resx">
-      <DependentUpon>202211150328508_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="EF\202211230239362_v4.resx">
+      <DependentUpon>202211230239362_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\202211230247012_v5.resx">
+      <DependentUpon>202211230247012_v5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EF\202211260148407_v2.resx">
+      <DependentUpon>202211260148407_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,10 +1,14 @@
-﻿@model IEnumerable<TravelWeb.Models.DTO.BookingTypeHtDTO>
+﻿
 @{
-    ViewBag.Title = "ShowHistory";
+    ViewBag.Title = "ShowLate";
     Layout = "~/Views/Managerht/_LayoutManager.cshtml";
 }
 
-<h2>ShowHistory</h2>
+<h2>ShowLate</h2>
+
+@model IEnumerable<TravelWeb.Models.DTO.BookingTypeHtDTO>
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -34,7 +38,7 @@
                 <th scope="col">@Html.DisplayNameFor(model => model.BookingTo)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.NumberOfMember)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.Types)</th>
-                
+
                 <th scope="col">@Html.DisplayNameFor(model => model.Statuses)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.TotalPrice)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.HotelName)</th>
@@ -53,13 +57,13 @@
                     <td>@Html.DisplayFor(model => c.BookingTo)</td>
                     <td>@Html.DisplayFor(model => c.NumberOfMember)</td>
                     <td>@Html.DisplayFor(model => c.Types)</td>
-                   
+
                     <td>@Html.DisplayFor(model => c.Statuses)</td>
                     <td>@c.TotalPrice.ToString()</td>
                     <td>@Html.DisplayFor(model => c.HotelName)</td>
 
 
-                   
+
 
                 </tr>
             }

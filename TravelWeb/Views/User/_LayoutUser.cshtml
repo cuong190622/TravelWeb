@@ -21,18 +21,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="@Url.Action("Index", "User")">Home <span class="sr-only">(current)</span></a>
-                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("ShowLocation", "User")">Location</a>
+                    <a class="nav-link" href="@Url.Action("Index", "User")">Home</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ShowBooked", "User")">Booked</a>
+                </li>
 
-                <a class="btn btn-danger float-right" href="@Url.Action("Logout", "Login")" role="button">Logout</a>
 
             </ul>
+
         </div>
+        <a class="btn btn-danger float-right" href="@Url.Action("Logout", "Login")" role="button">Logout</a>
     </nav>
 
     <div>

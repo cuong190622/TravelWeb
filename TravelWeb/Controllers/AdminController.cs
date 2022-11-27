@@ -14,6 +14,7 @@ namespace TravelWeb.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
+        [Authorize(Roles = SecurityRoles.Admin)]
         public ActionResult Index()
         {
             using (var ct = new EF.HotelContext())
@@ -23,7 +24,7 @@ namespace TravelWeb.Controllers
             }
         }
 
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult CreateLocation()
         {
@@ -62,7 +63,7 @@ namespace TravelWeb.Controllers
 
         }
 
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult EditLocation(int id)
         {
@@ -96,7 +97,7 @@ namespace TravelWeb.Controllers
             }
 
         }
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         public ActionResult ShowLocation()
         {
 
@@ -106,7 +107,7 @@ namespace TravelWeb.Controllers
                 return View(Location);
             }
         }
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult DeleteLocation(int id, Location a)
         {
@@ -147,7 +148,7 @@ namespace TravelWeb.Controllers
                 return stx;
             }
         }
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult CreateHotel()
         {
@@ -188,8 +189,8 @@ namespace TravelWeb.Controllers
 
         }
 
-        
 
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult EditHotel(int id)
         {
@@ -253,6 +254,7 @@ namespace TravelWeb.Controllers
             }
         }
 
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult DeleteHotel(int id, Hotel a)
         {
@@ -281,7 +283,7 @@ namespace TravelWeb.Controllers
 
         /// <ManagerAccount >
         /// /////////////////////////////////////////////////////////////////////////////
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         public ActionResult CreateUser()
         {
             
@@ -340,19 +342,18 @@ namespace TravelWeb.Controllers
 
 
         // Edit user account 
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult EditAccount(string id)
         {
-            HotelContext context = new HotelContext();
-            var roleManager = new Microsoft.AspNet.Identity.RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var userManager = new Microsoft.AspNet.Identity.UserManager<UserInfo>(new UserStore<UserInfo>(context));
+           
             using (var bwCtx = new HotelContext())
             {
                
                 var ct = bwCtx.Users.FirstOrDefault(t => t.Id == id);
                 if (ct != null)
                 {
+                    TempData["id"] = id;
                     return View(ct);
                 }
                 else
@@ -363,7 +364,7 @@ namespace TravelWeb.Controllers
         } 
 
         [HttpPost]
-        public async Task<ActionResult> EditAccount(string id, UserInfo newUser)
+        public async Task<ActionResult> EditAccount(string id,UserInfo newUser)
         {
             CustomValidationUser(newUser);
 
@@ -377,17 +378,18 @@ namespace TravelWeb.Controllers
                 var store = new UserStore<UserInfo>(context);
                 var manager = new UserManager<UserInfo>(store);
 
-                var user = await manager.FindByEmailAsync(newUser.Email);
+                var user = await manager.FindByIdAsync(id);
+                //var user = await manager.FindByEmailAsync(newUser.Email);
 
                 if (user != null)
                 {
                     user.UserName = newUser.Email.Split('@')[0];
-                    user.Email = newUser.Email;
-                    user.PasswordHash = "cuong123";
+                    user.Email = newUser.Email;                  
                     user.Name = newUser.Name;
                     user.Phone = newUser.Phone;
                     user.Age = newUser.Age;
                     user.DoB = newUser.DoB;
+                    
                     await manager.UpdateAsync(user);
                 }
                 return RedirectToAction("Index");
@@ -396,7 +398,7 @@ namespace TravelWeb.Controllers
         }
 
 
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult DeleteUser(string id)
         {
@@ -442,7 +444,7 @@ namespace TravelWeb.Controllers
 
 
         // Managerr account
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         public ActionResult CreateManager()
         {
 
@@ -500,7 +502,7 @@ namespace TravelWeb.Controllers
 
 
         // Edit Manager account 
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult EditManager(string id)
         {
@@ -514,6 +516,7 @@ namespace TravelWeb.Controllers
                 var ct = htCtx.Users.FirstOrDefault(t => t.Id == id);
                 if (ct != null)
                 {
+                    TempData["id"] = id;
                     return View(ct);
                 }
                 else
@@ -538,13 +541,12 @@ namespace TravelWeb.Controllers
                 var store = new UserStore<UserInfo>(context);
                 var manager = new UserManager<UserInfo>(store);
 
-                var user = await manager.FindByEmailAsync(newUser.Email);
+                var user = await manager.FindByIdAsync(id);
 
                 if (user != null)
                 {
                     user.UserName = newUser.UserName;
-                    user.Email = newUser.Email;
-                    user.PasswordHash = "cuong123";
+                    user.Email = newUser.Email;                  
                     user.Name = newUser.Name;
                     user.Phone = newUser.Phone;
                     user.Age = newUser.Age;
@@ -556,8 +558,7 @@ namespace TravelWeb.Controllers
 
         }
 
-
-
+        [Authorize(Roles = SecurityRoles.Admin)]
         [HttpGet]
         public ActionResult DeleteManager(string id)
         {

@@ -44,27 +44,31 @@
             <tbody id="myTable">
                 @foreach (var c in Model)
                 {
-                    <tr class="Search">
+                <tr class="Search">
 
-                        <td>@Html.DisplayFor(model => c.CustomerName)</td>
-                        <td>@Html.DisplayFor(model => c.CustomerAdress)</td>
-                        <td>@Html.DisplayFor(model => c.CustomerPhone)</td>
-                        <td>@Html.DisplayFor(model => c.BookingFrom)</td>
-                        <td>@Html.DisplayFor(model => c.BookingTo)</td>
-                        <td>@Html.DisplayFor(model => c.NumberOfMember)</td>
-                        <td>@Html.DisplayFor(model => c.Types)</td>
-                        <td>@Html.DisplayFor(model => c.NumberRoomBook)</td>
-                        <td>@Html.DisplayFor(model => c.Statuses)</td>
-                        <td>@c.TotalPrice.ToString()</td>
-                        <td>@Html.DisplayFor(model => c.HotelName)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerName)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerAdress)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerPhone)</td>
+                    <td>@Html.DisplayFor(model => c.BookingFrom)</td>
+                    <td>@Html.DisplayFor(model => c.BookingTo)</td>
+                    <td>@Html.DisplayFor(model => c.NumberOfMember)</td>
+                    <td>@Html.DisplayFor(model => c.Types)</td>
+                    <td>@Html.DisplayFor(model => c.NumberRoomBook)</td>
+                    <td>@Html.DisplayFor(model => c.Statuses)</td>
+                    <td>@c.TotalPrice.ToString()</td>
+                    <td>@Html.DisplayFor(model => c.HotelName)</td>
 
 
-                        <td>
-                            <a type="button" class="btn btn-success btn-sm"
-                               href="@Url.Action("Confirm", new {id = c.Id})">Checkin</a>
-                        </td>
+                    <td>
+                        <a type="button" class="btn btn-success btn-sm"
+                           href="@Url.Action("Confirm", new {id = c.Id})">Checkin</a>
+                    </td>
+                    <td>
+                        <a type="button" class="btn btn-success btn-sm"
+                           href="@Url.Action("CheckinLate", new {id = c.Id})">Late</a>
+                    </td>
 
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>

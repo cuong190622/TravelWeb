@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Confirm";
     Layout = "~/Views/Managerht/_LayoutManager.cshtml";
+    List<TravelWeb.Models.Room> availableRoom = ViewBag.AvailableRooms;
 }
 
 <h2>Confirm</h2>
@@ -15,84 +16,40 @@
     }
     <div class="container">
 
-
-        @using (Html.BeginForm(FormMethod.Post))
-        {
-            <div class="form-group">
-                @Html.LabelFor(m => m.TypeRoomId, htmlAttributes: new { @class = "form-weight-bold" })
-                @Html.DropDownListFor(m => m.TypeRoomId, (IEnumerable<SelectListItem>)ViewBag.Booking, htmlAttributes
-               : new { @class = "form-control" }
-               )
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.CustomerName,
-                  htmlAttributes: new { @class = "font-weight-bold" })
-
-
-                @Html.EditorFor(m => m.CustomerName,
-                 new
-                 {
-                   htmlAttributes = new { @class = "form-control" }
-                 })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.CustomerAdress, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.CustomerAdress,
-                new
+            <select id="select-room" class="form-control" multiple>
+                @foreach(var room in availableRoom)
                 {
-                  htmlAttributes = new { @class = "form-control" }
-                })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.CustomerPhone, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.CustomerPhone,
-                new
-                {
-                  htmlAttributes = new { @class = "form-control" }
-                })
+                <option value="@room.Id">@room.RoomNo</option>
+                }
+            </select>
 
 
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BookingFrom, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.BookingFrom,
-                new
-                {
-                  htmlAttributes = new { @class = "form-control" }
-                })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.BookingTo, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.BookingTo,
-                new
-                {
-                  htmlAttributes = new { @class = "form-control" }
-                })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.NumberOfMember, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.NumberOfMember,
-                new
-                {
-                  htmlAttributes = new { @class = "form-control" }
-                })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.numberRoomBook, new { @class = "font-weight-bold" })
-                @Html.EditorFor(m => m.numberRoomBook,
-                new
-                {
-                  htmlAttributes = new { @class = "form-control" }
-                })
-            </div>
             <br />
-            <button type="submit" class="btn btn-dark">Submit</button>
-        }
+            <button type="submit" id="btn-submit" btn class="btn btn-dark">Submit</button>
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var arr = [];
+        $('#select-room').change(function (e) {
+            console.log($('#select-room').val())
+            arr = $('#select-room').val()
+        })
+        $('#btn-submit').click(function () {
+            LoadData(arr);
+        })
+        function LoadData(arr) {
+            jQuery.ajax({
+                type: "POST",
+                url: "@Url.Action("AddRoom","Managerht")",
+                data: { Array: arr, BookingId: @ViewBag.BookingId },
+            dataType: "array",
+            success: function (msg) {
+                console.log(msg)
+            },
+        })
+        }
+    })
+</script>

@@ -16,13 +16,8 @@ namespace TravelWeb.Models.DTO
         public int NumberRoomBook { get; set; }
 
 
-        public object RoomFree
-        {
-            get
-            {
-                return MaxNumberRoom - NumberRoomBook;
-            }
-        }
+        public int RoomFree { get; set; }
+       
         public int HotelId { get; set; }
     }
 }

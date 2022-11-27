@@ -5,30 +5,34 @@
 }
 
 <h2>DeleteTypeRoom</h2>
-@using (Html.BeginForm(FormMethod.Post))
-{
-    @Html.HiddenFor(m => m.Id)
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name,
-          htmlAttributes: new { @class = "font-weight-bold" })
+<div class="container">
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name,
+              htmlAttributes: new { @class = "font-weight-bold" })
 
 
-        @Html.EditorFor(m => m.Name,
-         new
-         {
-           htmlAttributes = new { @class = "form-control" }
-         })
-    </div>
+            @Html.EditorFor(m => m.Name,
+             new
+             {
+               htmlAttributes = new { @class = "form-control" }
+             })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description, new { @class = "font-weight-bold" })
-        @Html.EditorFor(m => m.Description,
-        new
-        {
-          htmlAttributes = new { @class = "form-control" }
-        })
-    </div>
-    <br />
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.Description,
+            new
+            {
+              htmlAttributes = new { @class = "form-control" }
+            })
+        </div>
+        <br />
 
-    <button type="submit" class="btn btn-dark">Submit</button>
-}
+        <button type="submit" class="btn btn-dark">Submit</button>
+    }
+
+</div>
+
