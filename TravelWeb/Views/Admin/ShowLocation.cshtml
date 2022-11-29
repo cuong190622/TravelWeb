@@ -4,10 +4,10 @@
     Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
 }
 
-<h2>ShowLocation</h2>
+
 
 <div class="container">
-    <h1 class="display-4">Location OverView</h1>
+    <h1 class="display-4">Location</h1>
     @if (TempData["message"] != null)
     {
         ViewBag.Message = TempData["message"];
@@ -37,7 +37,7 @@
                 <th scope="row">@Html.DisplayFor(model => c.Id)</th>
                 <td>@Html.DisplayFor(model => c.Name)</td>
                 <td>@Html.DisplayFor(model => c.Description)</td>
-                <th scope="col">@Html.DisplayNameFor(model => model.Description)</th>
+                
                 <td><img src=@Url.Content(c.LocationImage) alt="" height="100" width="100" /></td>
                 <td>
                     <a type="button" class="btn btn-success btn-sm"

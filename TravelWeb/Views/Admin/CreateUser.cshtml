@@ -3,11 +3,16 @@
     ViewBag.Title = "CreateUser";
     Layout = "~/Views/Admin/_LayoutAdmin.cshtml";
 }
-
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    @*// <link rel="stylesheet" href="~/Content/Site.css" />*@
+</head>
 <h2>CreateUser</h2>
 
-<div class="container">
-    <h1 class="display-4">New User</h1>
+<body>
+    @Scripts.Render("~bundles/jquery")
+    @Scripts.Render("~bundles/jqueryval")
 
     @if (!ViewData.ModelState.IsValid)
     {
@@ -16,6 +21,7 @@
 
     @using (Html.BeginForm(FormMethod.Post))
     {
+    <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(m => m.Name,
               htmlAttributes: new { @class = "font-weight-bold" })
@@ -38,8 +44,12 @@
         </div>
 
         <div class="form-group">
-            @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "DoB" } })
-
+            @Html.LabelFor(m => m.DoB, new { @class = "font-weight-bold" })
+            @Html.EditorFor(m => m.DoB,
+            new
+            {
+              htmlAttributes = new { @class = "form-control" }
+            })
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Age, new { @class = "font-weight-bold" })
@@ -58,21 +68,16 @@
               htmlAttributes = new { @class = "form-control" }
             })
         </div>
+    </div>
+       
 
         <br />
 
 
-
-
-
-
-
         <button type="submit" class="btn btn-dark">Submit</button>
     }
-
-</div>
-
-
+</body>
+   
 
 
 
@@ -80,47 +85,4 @@
 
 
 
-@*@using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h1>Create User</h1>
-        <hr />
-
-       
-
-        <div class="form-group">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "Name" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-        <div class="form-group">
-            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "Age" } })
-            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
-        </div>
-
-       
-
-        <div class="form-group">
-            @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "DoB" } })
-            @Html.ValidationMessageFor(model => model.DoB, "", new { @class = "text-danger" })
-        </div>
-
-
-        <div class="form-group">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "Email" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form_title-input", @placeholder = "Phone Number" } })
-            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-        </div>
-
-        <button type="submit" class="btn btn-add">Submit</button> 
-    </div>
-}*@

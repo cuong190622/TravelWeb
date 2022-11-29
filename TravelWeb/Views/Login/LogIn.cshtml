@@ -1,55 +1,95 @@
-﻿@model TravelWeb.Models.UserInfo
-@{
-    ViewBag.Title = "LogIn";
-    Layout = "~/Views/Login/_LayoutLogin.cshtml";
-}
+﻿
+
+@model TravelWeb.Models.UserInfo
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+ 
+
+    <link href="~/Theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Theme/css/sb-admin-2.min.css" rel="stylesheet">
+
+
 </head>
 
-<body>
-    <div class="pt-5">
-            <h1 class="text-center"> Booking system </h1>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 mx-auto">
-                        <div class="message">
-                            @if (!ViewData.ModelState.IsValid)
-                            {
-                                @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" });
-                            }
-                        </div>
-                        <div class="card card-body">
-                            @using (Html.BeginForm("LogIn", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", _lpchecked = "1" }))
-                            {
-                                <div class="form-group required">
-                                    @Html.LabelFor(m => m.Email,
-                                       htmlAttributes: new { @class = "font-weight-bold" })
-                                    @Html.EditorFor(m => m.Email,
-                                      new
-                                      {
-                                          htmlAttributes = new { @class = "form-control text-lowercase" }
-                                      })
-                                </div>
-                                <div class="form-group required">
-                                    <label>Password</label> <br />
-                                    @Html.PasswordFor(m => m.PasswordHash,
-                                      new
-                                      {
-                                          htmlAttributes = new { @class = "form-control text-lowercase" }
-                                      })
-                                </div>
-                                <div class="form-group pt-1">
-                                    <button class="btn btn-primary btn-block" type="submit"> Log In </button>
-                                </div>
-                            }
+<body class="bg-gradient-primary">
 
+    <div class="container">
 
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"><td><img src=https://cdn-icons-png.flaticon.com/512/5087/5087579.png alt="" height="400" width="400" /></td></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    @using (Html.BeginForm("LogIn", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", _lpchecked = "1" }))
+                                    {
+                                        <div class="form-group required">
+                                            @Html.LabelFor(m => m.Email,
+                                               htmlAttributes: new { @class = "font-weight-bold" })
+                                            @Html.EditorFor(m => m.Email,
+                                              new
+                                              {
+                                                  htmlAttributes = new { @class = "form-control text-lowercase" }
+                                              })
+                                        </div>
+                                        <div class="form-group required">
+                                            <label>Password</label> <br />
+                                            @Html.PasswordFor(m => m.PasswordHash,
+                                              new
+                                              {
+                                                  htmlAttributes = new { @class = "form-control text-lowercase" }
+                                              })
+                                        </div>
+                                        <div class="form-group pt-1">
+                                            <button class="btn btn-primary btn-block" type="submit"> Log In </button>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </body>
 
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Theme/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Theme/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Theme/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Theme/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Theme/js/demo/chart-area-demo.js"></script>
+    <script src="~/Theme/js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
