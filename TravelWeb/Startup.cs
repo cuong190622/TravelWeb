@@ -15,7 +15,7 @@ namespace TravelWeb
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Login/NotAuth"),
-                ExpireTimeSpan = TimeSpan.FromMinutes(8),
+                ExpireTimeSpan = TimeSpan.FromMinutes(15),
             };
             app.UseCookieAuthentication(authOptions);
         }

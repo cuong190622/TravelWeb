@@ -16,48 +16,34 @@
 @{
     ViewBag.UN = TempData["UN"];
 }
-
-
-
 <header class="py-5">
     <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><img src=https://cdn.britannica.com/96/115096-050-5AFDAF5D/Bellagio-Hotel-Casino-Las-Vegas.jpg alt="" height="300" width="3000" /></div>
+        <div class="p-4 p-lg-4 bg-light rounded-3 text-center">
+            <h1>Hotel </h1>
 
         </div>
     </div>
 </header>
 
+<tbody>
+    @foreach (var c in Model)
+    {
 
-<section class="pt-4">
-    <div class="container px-lg-5">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="img-thumbnail"><img src=@Url.Content(c.HotelImage) alt="" height="200" width="340" /></div>
+                    <h2 class="card-title">@Html.DisplayFor(model => c.Name)</h2>
+                    <p class="card-text">@Html.DisplayFor(model => c.Description)</p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-sm" href="@Url.Action("ShowTypeRoom", new {id = c.Id})">View Type Room</a></div>
 
-        <div class="row gx-lg-5">
-
-            <tbody>
-                @foreach (var c in Model)
-                {
-                    <div class="col-lg-6 col-xxl-4 mb-5">
-                        <div class="card bg-light border-0 h-100">
-                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><img src=@Url.Content(c.HotelImage) alt="" height="100" width="100" /></div>
-                                <h2 class="fs-4 fw-bold">@Html.DisplayFor(model => c.Name)</h2>
-                                <p class="mb-0">@Html.DisplayFor(model => c.Description)</p>
-                                <p class="mb-0">
-                                    <a type="button" class="btn btn-success btn-sm"
-                                       href="@Url.Action("ShowTypeRoom", new {id = c.Id})">View Type </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                }
-            </tbody>
+            </div>
         </div>
-    </div>
-</section>
+
+
+    }
+</tbody>
 
 
 

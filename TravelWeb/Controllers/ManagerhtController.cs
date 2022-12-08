@@ -186,16 +186,39 @@ namespace TravelWeb.Controllers
 
         }
 
-        //private List<SelectListItem> getList()
-        //{
-        //    using (var abc = new EF.HotelContext())
-        //    {
-        //        var stx = 
-        //        // var bookinghotel = from room in abc.Rooms where room.HotelId == id select room;
-        //        //  return bookinghotel;
-        //        return stx;
-        //    }
-        //}
+
+        public ActionResult ManagerRoomBooking()
+        {
+            var bookingroom = (from br in context.BookingRooms
+                           join ro in context.Rooms on br.RoomId equals ro.Id
+                           join bk in context.Bookings on br.BookingId equals bk.Id
+                           join ty in context.TypeRooms on  ro.TypeId equals ty.Id
+                           join ht in context.Hotels on ty.HotelId equals ht.Id
+                           select
+                                new BookingRoomDTO
+                                {
+                                    Id = br.Id,
+                                    CustomerName = bk.CustomerName,
+                                    CustomerAdress = bk.CustomerAdress,
+                                    RoomNo = ro.RoomNo,
+                                    Type = ty.Name
+                                   
+
+
+                                }
+                          ).ToList();
+
+
+
+            return View(bookingroom);
+
+
+        }
+
+
+
+
+
         [Authorize(Roles = SecurityRoles.Manager)]
         public ActionResult ShowActive()
         {
@@ -402,9 +425,11 @@ namespace TravelWeb.Controllers
 
                 context.SaveChanges();
             }
-            return RedirectToAction("ShowWating","Managerht");
+            return RedirectToAction("ShowWating", "Managerht");
 
         }
+
+
 
 
 

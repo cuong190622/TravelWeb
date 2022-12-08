@@ -27,11 +27,14 @@ namespace TravelWeb.Controllers
             return RedirectToAction("LogIn", "Login"); // Redirect user to login page
         }
 
+        public ActionResult NotAuth()
+        {
+            return View();
+        }
 
 
 
 
-            
 
         // GET: Login
         [HttpGet]

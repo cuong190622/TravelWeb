@@ -49,7 +49,7 @@ namespace TravelWeb.Controllers
             {
                
 
-                // String id = System.Security.Principal.WindowsIdentity.GetCurrent().GetUserId();
+               
                 var booked = abc.Bookings.Where(a => a.UserId == user.Id ).ToList();
                 return View(booked);
             }
@@ -59,12 +59,10 @@ namespace TravelWeb.Controllers
         [Authorize(Roles = SecurityRoles.User)]
         public ActionResult ShowLocation()
         {
-
-            using (var locations = new EF.HotelContext())
-            {
-                var Location = locations.Locations.OrderBy(a => a.Id).ToList();
+          
+                var Location = context.Locations.OrderBy(a => a.Id).ToList();
                 return View(Location);
-            }
+            
         }
         [Authorize(Roles = SecurityRoles.User)]
         public ActionResult HotelLocation(int id)
@@ -72,18 +70,7 @@ namespace TravelWeb.Controllers
 
             using (var hotels = new EF.HotelContext())
             {
-                //var hotel = from location in hotels.Locations
-                //            join holtelLocation in hotels.Hotels on location.Id equals holtelLocation.LocationId select
-                //            new hotelLocationviewmodal()
-                //            {
-                //                id = holtelLocation.Id,
-
-                //                namehotel = holtelLocation.Name,
-                //                star = holtelLocation.Star,
-                //                description = holtelLocation.Star
-
-
-                //             }
+               
 
                 var hotelloca = from hotel in hotels.Hotels where hotel.LocationId == id select hotel;
                 return View(hotelloca.ToList());

@@ -7,6 +7,8 @@
 
 <h2>Confirm</h2>
 
+
+
 <div>
 
 
@@ -16,16 +18,17 @@
     }
     <div class="container">
 
-            <select id="select-room" class="form-control" multiple>
-                @foreach(var room in availableRoom)
-                {
+        <select id="select-room" class="form-control" multiple>
+            @foreach (var room in availableRoom)
+            {
                 <option value="@room.Id">@room.RoomNo</option>
-                }
-            </select>
+            }
+        </select>
 
 
-            <br />
-            <button type="submit" id="btn-submit" btn class="btn btn-dark">Submit</button>
+        <br />
+        @*<button type="submit" id="btn-submit" btn class="btn btn-dark">Submit</button>*@
+        <a id="btn-submit" class="btn btn-primary btn-lg" href=@Url.Action("ShowWating","Managerht")>Submit</a>
 
     </div>
 </div>
@@ -53,3 +56,8 @@
         }
     })
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

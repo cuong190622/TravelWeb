@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TravelWeb.Models.DTO.BookingRoomDTO>
+@{
+    ViewBag.Title = "ManagerRoomBooking";
+    Layout = "~/Views/Managerht/_LayoutManager.cshtml";
+}
+
+<h2>ManagerRoomBooking</h2>
+
+<div>
+
+    <input id="myInput" type="text" placeholder="Search..">
+    <br><br>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CustomerAdress)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.RoomNo)</th>
+                              
+                <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+
+               
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var c in Model)
+            {
+                <tr class="Search">
+
+                    <td>@Html.DisplayFor(model => c.CustomerName)</td>
+                    <td>@Html.DisplayFor(model => c.CustomerAdress)</td>
+                    <td>@Html.DisplayFor(model => c.RoomNo)</td>
+                    <td>@Html.DisplayFor(model => c.Type)</td>
+                  
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
