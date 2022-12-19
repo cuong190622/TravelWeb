@@ -28,6 +28,7 @@ namespace TravelWeb.Controllers
             context = new HotelContext();
         }
         // GET: user
+        [Authorize(Roles = SecurityRoles.User)]
         public ActionResult Index()
         {
             
@@ -47,10 +48,7 @@ namespace TravelWeb.Controllers
 
             using (var abc = new EF.HotelContext())
             {
-               
-
-               
-                var booked = abc.Bookings.Where(a => a.UserId == user.Id ).ToList();
+            var booked = abc.Bookings.Where(a => a.UserId == user.Id ).ToList();
                 return View(booked);
             }
         }
@@ -128,7 +126,7 @@ namespace TravelWeb.Controllers
                             Description = ty.Description,
                             HotelName = ht.Name,
                             AvailableRoom = ty.AvailableRoom != null ? ty.AvailableRoom : context.Rooms.Where(x => x.TypeId == ty.Id && x.Status.Equals("available")).Count(),
-                        }).Where(p => p.HotelId == id).ToList();
+                        }).Where(p => p.HotelId == id).ToList().Where(p=> p.AvailableRoom >= 1);
 
 
 
@@ -167,7 +165,7 @@ namespace TravelWeb.Controllers
 
 
 
-
+        [Authorize(Roles = SecurityRoles.User)]
         [HttpGet]
         public ActionResult CreateComment(int id)
         {
@@ -178,6 +176,7 @@ namespace TravelWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateComment(Comment a)
         {
+           
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("ShowComment", new { TypeId = a.TypeId });
@@ -264,12 +263,14 @@ namespace TravelWeb.Controllers
                     
                     var typeRoom = context.TypeRooms.FirstOrDefault(x => x.Id == a.TypeRoomId);
 
+
                     a.Price = typeRoom.Price * a.NumberRoomBook;  
                     a.UserId = user.Id;
+                    a.CustomerName = user.Name;
                     a.Status = "wating";
 
                     context.Bookings.Add(a);
-                    // await SendEmail((a.), "New user booking <p>Comment: " + a.RoomId + " </p>");
+                  
                     
                     typeRoom.AvailableRoom = context.Rooms.Where(x => x.TypeId == a.TypeRoomId && x.Status.Equals("available")).Count() - a.NumberRoomBook;
                     context.SaveChanges();
@@ -290,10 +291,7 @@ namespace TravelWeb.Controllers
             }
             
             
-            if (string.IsNullOrEmpty(a.CustomerName))
-            {
-                ModelState.AddModelError("CustomerName", "Please input Name");
-            }
+            
             if (a.BookingFrom <= DateTime.Now )
             {
                 ModelState.AddModelError("BookingFrom", "Please input from > now");
@@ -316,30 +314,7 @@ namespace TravelWeb.Controllers
                
         }
 
-        public async Task SendEmail(string email, string booked)
-        {
-            var body = "<p>Email From: {0} </p><p>Message: {1}</p>";
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(email));
-            message.From = new MailAddress("dinhcuong22062001@gmail.com");
-            message.Subject = "New email from BookingHotel.vn";
-            message.Body = string.Format(body, "Admin", booked);
-            message.IsBodyHtml = true;
-
-            using (var smtp = new SmtpClient())
-            {
-                var credential = new NetworkCredential
-                {
-                    UserName = "dinhcuong22062001@gmail.com",
-                    Password = "cuong2001"
-                };
-                smtp.Credentials = credential;
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(message);
-            }
-        }
+       
 
 
       

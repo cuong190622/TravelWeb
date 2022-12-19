@@ -2,7 +2,23 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Managerht/_LayoutManager.cshtml";
+
 }
 
-<h2>Index</h2>
+@if (TempData["message"] != null)
+{
+    <script>
+        alert('@Html.Raw(TempData["message"])')
+    </script>
+}
 
+
+
+<div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://v-biz.vn/static/media/Travel.ff88c854.jpg" alt="..." /></div>
+    <div class="col-lg-5">
+        <h1 class="font-weight-light">Booking Hotel</h1>
+        <p>Take you where you want to go. Let's explore together</p>
+        <a class="btn btn-primary btn-lg" href=@Url.Action("ShowTypeRoom","Managerht")>Manager Type Room</a>
+    </div>
+</div>

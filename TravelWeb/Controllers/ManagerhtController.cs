@@ -373,23 +373,9 @@ namespace TravelWeb.Controllers
             if (booked != null)
             {
 
-                var roomcount = context.BookingRooms.Where(x => x.BookingId == id);
-                //foreach (var room in roomcount)
-                //{
-
-
-                //    var RoomBook = context.Rooms.FirstOrDefault(x => x.Id == room.RoomId);
-                //    RoomBook.Status = "available";
-
-
-                //}
-
-
+                var roomcount = context.BookingRooms.Where(x => x.BookingId == id);            
                 var roomType = context.TypeRooms.FirstOrDefault(x => x.Id == booked.TypeRoomId);
                 roomType.AvailableRoom += booked.NumberRoomBook;
-
-
-
                 booked.Status = "late";
                 context.SaveChanges();
                 return RedirectToAction("ShowWating");
@@ -460,22 +446,29 @@ namespace TravelWeb.Controllers
         [HttpPost]
         public ActionResult DeleteTypeRoom(int id)
         {
-           
-            //if(context.Rooms.Where(x=> x.TypeId == id).Any())
-            //{
-            //    TempData[]
-            //}
-            using (var abc = new EF.HotelContext())
+
+            if (context.Rooms.Where(x => x.TypeId == id).Any())
+            {
+               
+                TempData["message"] = $" delete not Successfully" ;
+                
+            }
+
+            else {  
+                using (var abc = new EF.HotelContext())
             {
                 var xxx = abc.TypeRooms.FirstOrDefault(b => b.Id == id);
                 if (xxx != null)
                 {
-                    abc.TypeRooms.Remove(xxx);
+                    abc.TypeRooms.Remove(xxx); 
                     abc.SaveChanges();
                 }
                 TempData["message"] = $"Successfully delete with Id: {xxx.Id}";
                 return RedirectToAction("Index");
             }
+            }
+            return RedirectToAction("Index");
+
         }
 
         ////////////////////////////////////////////// 

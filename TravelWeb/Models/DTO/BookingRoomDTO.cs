@@ -12,6 +12,10 @@ namespace TravelWeb.Models.DTO
         public string CustomerAdress { get; set; }
         public string RoomNo { get; set; }
         public string Type { get; set; }
+        public string Status { get; set; }
+
+        public string HotelName { get; set; }
+
 
 
     }

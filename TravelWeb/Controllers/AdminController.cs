@@ -11,8 +11,20 @@ using TravelWeb.Models;
 
 namespace TravelWeb.Controllers
 {
+
+
     public class AdminController : Controller
     {
+        private readonly HotelContext context;
+
+
+        // open db context 
+        public AdminController()
+        {
+            context = new HotelContext();
+
+        }
+
         // GET: Admin
         [Authorize(Roles = SecurityRoles.Admin)]
         public ActionResult Index()
@@ -121,17 +133,28 @@ namespace TravelWeb.Controllers
         [HttpPost]
         public ActionResult DeleteLocation(int id)
         {
-            using (var abc = new EF.HotelContext())
+
+            if (context.Hotels.Where(x => x.LocationId == id).Any())
             {
-                var xxx = abc.Locations.FirstOrDefault(b => b.Id == id);
+
+                TempData["message"] = $" delete not Successfully because had Hote in type";
+
+            }
+            else
+            {
+                 
+            {
+                var xxx = context.Locations.FirstOrDefault(b => b.Id == id);
                 if (xxx != null)
                 {
-                    abc.Locations.Remove(xxx);
-                    abc.SaveChanges();
+                    context.Locations.Remove(xxx);
+                    context.SaveChanges();
                 }
                 TempData["message"] = $"Successfully delete with Id: {xxx.Id}";
                 return RedirectToAction("ShowLocation");
             }
+            }
+            return RedirectToAction("ShowLocation");
         }
         ////// <Manager Hotel> 
         ///  
@@ -437,11 +460,6 @@ namespace TravelWeb.Controllers
             return RedirectToAction("Index");
 
         }
-
-
-
-
-
 
         // Managerr account
         [Authorize(Roles = SecurityRoles.Admin)]

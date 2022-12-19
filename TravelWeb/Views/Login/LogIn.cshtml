@@ -37,6 +37,10 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
                                     </div>
+                                    @if (!ViewData.ModelState.IsValid)
+                                    {
+                                        @Html.ValidationSummary(false, "Error Summary", new { @class = "text-danger" })
+                                    }
                                     @using (Html.BeginForm("LogIn", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", _lpchecked = "1" }))
                                     {
                                         <div class="form-group required">

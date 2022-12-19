@@ -23,7 +23,7 @@
                 <th scope="col">@Html.DisplayNameFor(model => model.UserName)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.Comment)</th>
                 <th scope="col">@Html.DisplayNameFor(model => model.TimeComment)</th>
-               
+
                 <th scope="col">&nbsp;</th>
             </tr>
         </thead>
@@ -35,14 +35,16 @@
                 <tr>
                     <th scope="row">@Html.DisplayFor(model => c.Id)</th>
                     <td>@Html.DisplayFor(model => c.UserName)</td>
-                   
+
                     <td>@Html.DisplayFor(model => c.Comment)</td>
                     <td>@Html.DisplayFor(model => c.TimeComment)</td>
-                   
+
                 </tr>
             }
         </tbody>
     </table>
+     <a class="btn btn-primary btn-sm" href="javascript:void(0);" onclick="history.go(-1);">Back to Type </a>
+
 </div>
 
 
